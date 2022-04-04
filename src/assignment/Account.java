@@ -8,11 +8,11 @@ public class Account {
 	
 	public double getLoanValue() {
 		System.out.println("The loan value is " + this.loanValue);
-		return loanValue;
+		return this.loanValue;
 	}
 	
 	public double getRate() {
-		System.out.println("The rate is "+rate);
+		System.out.println("The rate is "+this.rate);
 		return this.rate;
 	}
 	
@@ -21,25 +21,23 @@ public class Account {
 		return loanValue*rate;
 	}
 	
-	public void setValue(double value) throws Exception {
+	public void setLoanValue(double value) throws Exception {
 		if(value<0)
 			throw new Exception();
 		else
 		{
-			loanValue = value;
+			this.loanValue = value;
 		}
 	}
 	
-	public String to_string() {
-		return "Loan: "+this.loanValue+"; rate: "+this.rate+"; days active:"+daysActive+"; Type: "+accountType+";";
-	}
-	
-	public void print() {
-		int vb = 10;
-		System.out.println("This is an account");
+
+	@Override
+	public String toString() {
+		return "Account [loanValue=" + loanValue + ", rate=" + rate + ", daysActive=" + daysActive + ", accountType="
+				+ accountType + "]";
 	}
 
-	public static double calculate(Account[] 	accounts)
+	public static double computeTotalFee(Account[] 	accounts)
 	{
 	double totalFee=0.0;
 	Account	account;
@@ -53,7 +51,7 @@ public class Account {
 	return	totalFee;
 	}
 
-	public Account(double value, double rate, int account_Type) throws Exception {
+	public Account(double value, double rate, int daysActive, AccountType type) throws Exception {
 		if(value<0)
 			throw new Exception();
 		else
@@ -61,7 +59,8 @@ public class Account {
 			loanValue = value;
 		}
 		this.rate = rate;
-		this.accountType = accountType;
+		this.daysActive=daysActive;
+		this.accountType = type;
 	}
 	
 	
