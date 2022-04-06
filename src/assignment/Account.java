@@ -16,6 +16,10 @@ public class Account {
 		return this.rate;
 	}
 
+	public AccountType getAccountType() {
+		return accountType;
+	}
+
 	// must have method - the lead has requested it in all classes
 	public double getMonthlyRate() {
 		return loanValue * rate;
@@ -38,15 +42,6 @@ public class Account {
 		return this.loanValue * (1 - Math.pow(this.rate, (this.getMonthlyRate())));
 	}
 
-	public static double computeTotalFee(Account[] accounts) {
-		double totalFee = 0.0;
-		for (int i = 0; i < accounts.length; i++) {
-			if (accounts[i].accountType == AccountType.PREMIUM || accounts[i].accountType == AccountType.SUPER_PREMIUM)
-				totalFee += .0125 * ( // 1.25% broker's fee
-				accounts[i].computeInterestRate()); // interest-principal
-		}
-		return totalFee;
-	}
 
 	public Account(double value, double rate, int daysActive, AccountType type) throws Exception {
 		checkArgumentIsValid(value, "Loan value cannot be 0");
