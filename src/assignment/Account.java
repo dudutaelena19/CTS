@@ -34,6 +34,10 @@ public class Account {
 		return "Account [loanValue=" + loanValue + ", rate=" + rate + ", daysActive=" + daysActive + ", accountType="
 				+ accountType + "]";
 	}
+	
+	public double computeInterestRate() {
+		return this.loanValue*(1-Math.pow(this.rate,(this.getMonthlyRate())));
+	}
 
 	public static double computeTotalFee(Account[] 	accounts)
 	{
@@ -42,7 +46,7 @@ public class Account {
 	for	(int	i=0;i<accounts.length;i++)	{
 	if(accounts[i].accountType==AccountType.PREMIUM||accounts[i].accountType==AccountType.SUPER_PREMIUM)	
 	totalFee+=.0125	*	(	//	1.25%	broker's	fee
-			accounts[i].loanValue*Math.pow(accounts[i].rate,(accounts[i].daysActive/365)) - accounts[i].loanValue);	//	interest-principal
+			accounts[i].computeInterestRate());	//	interest-principal
 	}
 	return	totalFee;
 	}
