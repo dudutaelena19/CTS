@@ -17,12 +17,12 @@ public class Account {
 	}
 
 	public AccountType getAccountType() {
-		return accountType;
+		return this.accountType;
 	}
 
 	// must have method - the lead has requested it in all classes
 	public double getMonthlyRate() {
-		return loanValue * rate;
+		return this.loanValue * this.rate;
 	}
 
 	public void setLoanValue(double value) throws Exception {
@@ -43,7 +43,7 @@ public class Account {
 	}
 
 
-	public Account(double value, double rate, int daysActive, AccountType type) throws Exception {
+	public Account(double value, double rate, int daysActive, AccountType type)  {
 		checkArgumentIsValid(value, "Loan value cannot be 0");
 		checkArgumentIsValid(daysActive, "Cannot have a negative number of days");
 
