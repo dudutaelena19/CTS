@@ -22,12 +22,10 @@ public class Account {
 	}
 	
 	public void setLoanValue(double value) throws Exception {
-		if(value<0)
-			throw new Exception();
-		else
-		{
-			this.loanValue = value;
-		}
+		checkArgumentIsValid(value, "Loan value cannot be a negative number");
+		
+		this.loanValue=value;
+		
 	}
 	
 
@@ -40,28 +38,29 @@ public class Account {
 	public static double computeTotalFee(Account[] 	accounts)
 	{
 	double totalFee=0.0;
-	Account	account;
 	int temp = 365;
 	for	(int	i=0;i<accounts.length;i++)	{
-	account=accounts[i];
-	if(account.accountType==AccountType.PREMIUM||account.accountType==AccountType.SUPER_PREMIUM)	
+	if(accounts[i].accountType==AccountType.PREMIUM||accounts[i].accountType==AccountType.SUPER_PREMIUM)	
 	totalFee+=.0125	*	(	//	1.25%	broker's	fee
-			account.loanValue*Math.pow(account.rate,(account.daysActive/365)) - account.loanValue);	//	interest-principal
+			accounts[i].loanValue*Math.pow(accounts[i].rate,(accounts[i].daysActive/365)) - accounts[i].loanValue);	//	interest-principal
 	}
 	return	totalFee;
 	}
 
 	public Account(double value, double rate, int daysActive, AccountType type) throws Exception {
-		if(value<0)
-			throw new Exception();
-		else
-		{
-			loanValue = value;
-		}
+		checkArgumentIsValid(value, "Loan value cannot be 0");
+		checkArgumentIsValid(daysActive, "Cannot have a negative number of days");
+		
+		this.loanValue = value;
 		this.rate = rate;
 		this.daysActive=daysActive;
 		this.accountType = type;
 	}
 	
+	 private void checkArgumentIsValid(double arg, String message) {
+         if (arg < 0) {
+             throw new IllegalArgumentException(message);
+         }
 	
+	 }
 }
